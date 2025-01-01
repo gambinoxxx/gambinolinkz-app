@@ -2,7 +2,7 @@ import React,{useState,useEffect}from 'react'
 import { Button, Menu, Typography, Avatar } from 'antd';
 import { Link } from 'react-router-dom';
 import { HomeOutlined, MoneyCollectOutlined, BulbOutlined, FundOutlined, MenuOutlined } from '@ant-design/icons';
-import icon from '../images/gambinoviewsLogo-Photoroom 1 (4).png';
+import icon from '../images/gambinoblur.png';
 
 const Navbar = () => {
   const [activeMenu ,setActiveMenu]= useState(true);
@@ -31,9 +31,9 @@ const Navbar = () => {
         <Typography.Title level={2} className="logo">
           <Link to="/homepage">Gambinoviews</Link> {/* Corrected from <link> to <Link> */}
         </Typography.Title>
-        <button className='menu-control-container' onClick={() => setActiveMenu(!activeMenu)}>
+        <Button className='menu-control-container' onClick={() => setActiveMenu(!activeMenu)}>
           <MenuOutlined/>
-        </button>
+        </Button>
         
       </div>
       {activeMenu && (

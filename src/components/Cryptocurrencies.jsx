@@ -12,7 +12,6 @@ const Cryptocurrencies = ({ simplified }) => {
   const [cryptos, setCryptos] = useState();
   const [searchTerm, setSearchTerm] = useState('');
 
-  console.log(useGetCryptosQuery)
   useEffect(() => {
     setCryptos(cryptosList?.data?.coins);
 
@@ -47,7 +46,7 @@ const Cryptocurrencies = ({ simplified }) => {
             <Link key={currency.uuid} to={`/crypto/${currency.uuid}`}>
               <Card
                 title={`${currency.rank}. ${currency.name}`}
-                extra={<img className="crypto-image" src={currency.iconUrl} />}
+                extra={<img className="crypto-image" src={currency.iconUrl} alt={`${currency.name} icon`} />}
                 hoverable
               >
                 <p>Price: {millify(currency.price)}</p>
