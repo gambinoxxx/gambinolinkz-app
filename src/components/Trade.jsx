@@ -8,12 +8,12 @@ const { Option } = Select;
 const Trade = () => {
   const [selectedCrypto, setSelectedCrypto] = useState(null);
   const [searchInput, setSearchInput] = useState('');
-  const [tradeAmount, setTradeAmount] = useState(0); // Amount in dollars
+  const [tradeAmount, setTradeAmount] = useState(0);
   const [tradeType, setTradeType] = useState(null);
   const { data: cryptoData, isLoading, error } = useGetCryptosQuery(6);
 
-  const TELEGRAM_BOT_TOKEN = '7694338636:AAEU6qc2zSL64xsFUclfaYZd8GwYRO2HIHI'; // Replace with your bot token
-  const TELEGRAM_CHAT_ID = '6873472526'; // Replace with your chat ID or channel ID
+  const TELEGRAM_BOT_TOKEN = '8042634887:AAE_sJcsaqs5bXMyLWIzoxmCWLc1-WLimnE';
+  const TELEGRAM_CHAT_ID = '6873472526';
 
   if (isLoading) return <div>Loading crypto data...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -39,31 +39,36 @@ const Trade = () => {
     const nairaEquivalent = tradeAmount * rate;
 
     const message = `
-      New Trade Order:
-      Crypto: ${selectedCrypto.name} (${selectedCrypto.symbol})
-      Type: ${tradeType.toUpperCase()}
-      Amount (in USD): $${tradeAmount}
-      Equivalent in NGN: ₦${nairaEquivalent.toFixed(2)}
-      Quantity: ${quantity.toFixed(6)}
-      Price: $${millify(selectedCrypto.price)}
+New Trade Order:
+Crypto: ${selectedCrypto.name} (${selectedCrypto.symbol})
+Type: ${tradeType.toUpperCase()}
+Amount (in USD): $${tradeAmount}
+Equivalent in NGN: ₦${nairaEquivalent.toFixed(2)}
+Quantity: ${quantity.toFixed(6)}
+Price: $${millify(selectedCrypto.price)}
     `;
 
-    // Send message to Telegram
     try {
-      await fetch(
-        `https://api.telegram.org/bot${'7694338636:AAEU6qc2zSL64xsFUclfaYZd8GwYRO2HIHI'}/sendMessage`,
+      const response = await fetch(
+        `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            chat_id: 6873472526,
+            chat_id: TELEGRAM_CHAT_ID,
             text: message,
           }),
         }
       );
 
-      alert('Trade Confirmed and sent to Telegram!');
-      console.log(message);
+      const result = await response.json();
+      console.log(result); // Log the Telegram API response
+
+      if (result.ok) {
+        alert('Trade Confirmed and sent to Telegram!');
+      } else {
+        alert(`Error: ${result.description}`);
+      }
     } catch (error) {
       alert('Failed to send trade info to Telegram.');
       console.error(error);
@@ -77,7 +82,6 @@ const Trade = () => {
 
   return (
     <div style={{ padding: 20 }}>
-      {/* Trade Panel */}
       {selectedCrypto && (
         <div style={{ marginBottom: 20, padding: 20, border: '1px solid #ddd' }}>
           <h2>Trade {selectedCrypto.name}</h2>
@@ -93,7 +97,7 @@ const Trade = () => {
             style={{ width: '100%', marginBottom: 10 }}
             placeholder="Select Trade Type"
             onChange={setTradeType}
-            value={tradeType} // Ensuring controlled component behavior
+            value={tradeType}
           >
             <Option value="buy">Buy</Option>
             <Option value="sell">Sell</Option>
@@ -121,7 +125,6 @@ const Trade = () => {
         </div>
       )}
 
-      {/* Search Input */}
       <Input
         style={{ marginBottom: 20 }}
         placeholder="Search Cryptocurrency"
@@ -129,7 +132,6 @@ const Trade = () => {
         onChange={(e) => setSearchInput(e.target.value)}
       />
 
-      {/* List of Cryptos */}
       <Row gutter={[16, 16]}>
         {filteredData?.map((crypto) => (
           <Col key={crypto.id} xs={24} sm={12} lg={8}>
