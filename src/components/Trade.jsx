@@ -81,12 +81,12 @@ Price: $${millify(selectedCrypto.price)}
   };
 
   return (
-    <div style={{ padding: 20 }}>
+    <div style={{ padding: '20px' }}>
       {selectedCrypto && (
-        <div style={{ marginBottom: 20, padding: 20, border: '1px solid #ddd' }}>
-          <h2>Trade {selectedCrypto.name}</h2>
+        <div className="trade-panel">
+          <h2 className="trade-title">Trade {selectedCrypto.name}</h2>
           <InputNumber
-            style={{ width: '100%', marginBottom: 10 }}
+            className="trade-input"
             placeholder="Enter Amount in USD"
             value={tradeAmount}
             min={0}
@@ -94,7 +94,7 @@ Price: $${millify(selectedCrypto.price)}
           />
 
           <Select
-            style={{ width: '100%', marginBottom: 10 }}
+            className="trade-select"
             placeholder="Select Trade Type"
             onChange={setTradeType}
             value={tradeType}
@@ -103,20 +103,20 @@ Price: $${millify(selectedCrypto.price)}
             <Option value="sell">Sell</Option>
           </Select>
 
-          <p>
+          <p className="trade-summary">
             You are about to {tradeType ? tradeType.toUpperCase() : 'select a trade type'} ${tradeAmount} worth of{' '}
             {selectedCrypto.symbol}. Quantity: {(tradeAmount / selectedCrypto.price).toFixed(6)}.
           </p>
           {tradeType === 'sell' && tradeAmount > 0 && (
-            <p>
+            <p className="trade-equivalent">
               Equivalent in NGN: ₦
               {(tradeAmount * (tradeAmount <= 500 ? 1600 : 1630)).toFixed(2)}.
             </p>
           )}
 
           <Button
+            className="trade-button"
             type="primary"
-            style={{ marginTop: 10, width: '100%' }}
             onClick={handleConfirmTrade}
             disabled={!tradeType || tradeAmount <= 0}
           >
@@ -126,7 +126,7 @@ Price: $${millify(selectedCrypto.price)}
       )}
 
       <Input
-        style={{ marginBottom: 20 }}
+        className="search-crypto"
         placeholder="Search Cryptocurrency"
         value={searchInput}
         onChange={(e) => setSearchInput(e.target.value)}
@@ -138,9 +138,7 @@ Price: $${millify(selectedCrypto.price)}
             <Card
               hoverable
               onClick={() => handleSelectCrypto(crypto)}
-              style={{
-                border: selectedCrypto?.id === crypto.id ? '2px solid #1890ff' : '1px solid #ddd',
-              }}
+              className={`crypto-card ${selectedCrypto?.id === crypto.id ? 'selected' : ''}`}
             >
               <h3>{crypto.name}</h3>
               <p>Price: ${millify(crypto.price)}</p>

@@ -409,4 +409,56 @@ width: 70%;
     outline: none;
     box-shadow: 0 0 0 2px var(--pink);
   }
-  
+  .trade-panel {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background-color: var(--bgPrimary);
+}
+
+.trade-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--pink);
+}
+
+.trade-input,
+.trade-select {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.trade-summary {
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+}
+
+.trade-equivalent {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+}
+
+.trade-button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--pink);
+    color: #fff;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.trade-button:hover {
+    background-color: var(--light-blue);
+    color: var(--pink);
+}
+
+.search-crypto {
+    margin-bottom: 20px;
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+}
