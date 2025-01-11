@@ -31,15 +31,15 @@ const App = () => {
             All rights reserved by Gambinolinkz
           </Typography.Title>
           <Space>
-            <button style={{ margin: '0 10px', padding: '5px 10px', cursor: 'pointer' }}>
-              <Link to="/homepage" style={{ color: 'inherit', textDecoration: 'none' }}>Home</Link>
-            </button>
-            <button style={{ margin: '0 10px', padding: '5px 10px', cursor: 'pointer' }}>
-              <Link to="/cryptocurrencies" style={{ color: 'inherit', textDecoration: 'none' }}>Cryptocurrencies</Link>
-            </button>
-            <button style={{ margin: '0 10px', padding: '5px 10px', cursor: 'pointer' }}>
-              <Link to="/trade" style={{ color: 'inherit', textDecoration: 'none' }}>Trade</Link>
-            </button>
+            <Link to="/homepage" className="footer-button">
+              Home
+            </Link>
+            <Link to="/cryptocurrencies" className="footer-button">
+              Cryptocurrencies
+            </Link>
+            <Link to="/trade" className="footer-button">
+              Trade
+            </Link>
           </Space>
         </div>
       </div>
