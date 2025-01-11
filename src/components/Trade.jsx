@@ -10,10 +10,10 @@ const Trade = () => {
   const [searchInput, setSearchInput] = useState('');
   const [tradeAmount, setTradeAmount] = useState(0); // Amount in dollars
   const [tradeType, setTradeType] = useState(null);
-  const { data: cryptoData, isLoading, error } = useGetCryptosQuery(10);
+  const { data: cryptoData, isLoading, error } = useGetCryptosQuery(6);
 
-  const TELEGRAM_BOT_TOKEN = 'your-telegram-bot-token'; // Replace with your bot token
-  const TELEGRAM_CHAT_ID = 'your-chat-id'; // Replace with your chat ID or channel ID
+  const TELEGRAM_BOT_TOKEN = '7694338636:AAEU6qc2zSL64xsFUclfaYZd8GwYRO2HIHI'; // Replace with your bot token
+  const TELEGRAM_CHAT_ID = '6873472526'; // Replace with your chat ID or channel ID
 
   if (isLoading) return <div>Loading crypto data...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -51,12 +51,12 @@ const Trade = () => {
     // Send message to Telegram
     try {
       await fetch(
-        `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
+        `https://api.telegram.org/bot${'7694338636:AAEU6qc2zSL64xsFUclfaYZd8GwYRO2HIHI'}/sendMessage`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            chat_id: TELEGRAM_CHAT_ID,
+            chat_id: 6873472526,
             text: message,
           }),
         }
@@ -77,36 +77,9 @@ const Trade = () => {
 
   return (
     <div style={{ padding: 20 }}>
-      {/* Search Input */}
-      <Input
-        style={{ marginBottom: 20 }}
-        placeholder="Search Cryptocurrency"
-        value={searchInput}
-        onChange={(e) => setSearchInput(e.target.value)}
-      />
-
-      {/* List of Cryptos */}
-      <Row gutter={[16, 16]}>
-        {filteredData?.map((crypto) => (
-          <Col key={crypto.id} xs={24} sm={12} lg={8}>
-            <Card
-              hoverable
-              onClick={() => handleSelectCrypto(crypto)}
-              style={{
-                border: selectedCrypto?.id === crypto.id ? '2px solid #1890ff' : '1px solid #ddd',
-              }}
-            >
-              <h3>{crypto.name}</h3>
-              <p>Price: ${millify(crypto.price)}</p>
-              <p>Market Cap: ${millify(crypto.marketCap)}</p>
-            </Card>
-          </Col>
-        ))}
-      </Row>
-
       {/* Trade Panel */}
       {selectedCrypto && (
-        <div style={{ marginTop: 20, padding: 20, border: '1px solid #ddd' }}>
+        <div style={{ marginBottom: 20, padding: 20, border: '1px solid #ddd' }}>
           <h2>Trade {selectedCrypto.name}</h2>
           <InputNumber
             style={{ width: '100%', marginBottom: 10 }}
@@ -147,6 +120,33 @@ const Trade = () => {
           </Button>
         </div>
       )}
+
+      {/* Search Input */}
+      <Input
+        style={{ marginBottom: 20 }}
+        placeholder="Search Cryptocurrency"
+        value={searchInput}
+        onChange={(e) => setSearchInput(e.target.value)}
+      />
+
+      {/* List of Cryptos */}
+      <Row gutter={[16, 16]}>
+        {filteredData?.map((crypto) => (
+          <Col key={crypto.id} xs={24} sm={12} lg={8}>
+            <Card
+              hoverable
+              onClick={() => handleSelectCrypto(crypto)}
+              style={{
+                border: selectedCrypto?.id === crypto.id ? '2px solid #1890ff' : '1px solid #ddd',
+              }}
+            >
+              <h3>{crypto.name}</h3>
+              <p>Price: ${millify(crypto.price)}</p>
+              <p>Market Cap: ${millify(crypto.marketCap)}</p>
+            </Card>
+          </Col>
+        ))}
+      </Row>
     </div>
   );
 };
