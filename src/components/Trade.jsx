@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import millify from 'millify';
 import { Card, Input, Button, InputNumber, Select, Row, Col } from 'antd';
 import { useGetCryptosQuery } from '../services/cryptoApi';
@@ -12,8 +12,8 @@ const Trade = () => {
   const [tradeType, setTradeType] = useState(null);
   const { data: cryptoData, isLoading, error } = useGetCryptosQuery(6);
 
-  const TELEGRAM_BOT_TOKEN = '8042634887:AAE_sJcsaqs5bXMyLWIzoxmCWLc1-WLimnE';
-  const TELEGRAM_CHAT_ID = '6873472526';
+  const WHATSAPP_PHONE = '2349035914544'; // Replace with your WhatsApp number
+  const tradePanelRef = useRef(null); // Reference for the trade panel
 
   if (isLoading) return <div>Loading crypto data...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -26,9 +26,14 @@ const Trade = () => {
     setSelectedCrypto(crypto);
     setTradeAmount(0);
     setTradeType(null);
+
+    // Scroll to the trade panel
+    if (tradePanelRef.current) {
+      tradePanelRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
-  const handleConfirmTrade = async () => {
+  const handleConfirmTrade = () => {
     if (!selectedCrypto || !tradeType || tradeAmount <= 0) {
       alert('Please select a crypto, trade type, and a valid amount.');
       return;
@@ -38,7 +43,7 @@ const Trade = () => {
     const rate = tradeAmount <= 500 ? 1600 : 1630;
     const nairaEquivalent = tradeAmount * rate;
 
-    const message = `
+    const message = encodeURIComponent(`
 New Trade Order:
 Crypto: ${selectedCrypto.name} (${selectedCrypto.symbol})
 Type: ${tradeType.toUpperCase()}
@@ -46,33 +51,11 @@ Amount (in USD): $${tradeAmount}
 Equivalent in NGN: ₦${nairaEquivalent.toFixed(2)}
 Quantity: ${quantity.toFixed(6)}
 Price: $${millify(selectedCrypto.price)}
-    `;
+    `);
 
-    try {
-      const response = await fetch(
-        `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: TELEGRAM_CHAT_ID,
-            text: message,
-          }),
-        }
-      );
-
-      const result = await response.json();
-      console.log(result); // Log the Telegram API response
-
-      if (result.ok) {
-        alert('Trade Confirmed and sent to Telegram!');
-      } else {
-        alert(`Error: ${result.description}`);
-      }
-    } catch (error) {
-      alert('Failed to send trade info to Telegram.');
-      console.error(error);
-    }
+    // Redirect to WhatsApp with the order message
+    alert('Trade Confirmed! Click OK to finish trade on WhatsApp.');
+    window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${message}`, '_blank');
 
     // Reset state
     setSelectedCrypto(null);
@@ -83,7 +66,7 @@ Price: $${millify(selectedCrypto.price)}
   return (
     <div style={{ padding: '20px' }}>
       {selectedCrypto && (
-        <div className="trade-panel">
+        <div ref={tradePanelRef} className="trade-panel">
           <h2 className="trade-title">Trade {selectedCrypto.name}</h2>
           <InputNumber
             className="trade-input"
