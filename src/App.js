@@ -31,9 +31,6 @@ const App = () => {
             All rights reserved by Gambinolinkz
           </Typography.Title>
           <Space>
-            <Link to="/homepage" className="footer-button">
-              Home
-            </Link>
             <Link to="/cryptocurrencies" className="footer-button">
               Cryptocurrencies
             </Link>
