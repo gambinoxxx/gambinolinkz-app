@@ -12,7 +12,7 @@ const Trade = () => {
   const [tradeType, setTradeType] = useState(null);
   const { data: cryptoData, isLoading, error } = useGetCryptosQuery(6);
 
-  const WHATSAPP_PHONE = '2349035914544'; // Replace with your WhatsApp number
+  const WHATSAPP_PHONE = '2349054786960'; // Replace with your WhatsApp number
   const tradePanelRef = useRef(null); // Reference for the trade panel
 
   if (isLoading) return <div>Loading crypto data...</div>;
