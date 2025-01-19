@@ -20,7 +20,7 @@ const App = () => {
               <Route exact path="/exchanges" element={<Exchanges />} />
               <Route exact path="/cryptocurrencies" element={<Cryptocurrencies />} />
               <Route exact path="/crypto/:coinId" element={<CryptoDetails />} />
-              <Route exact path="/news" element={<News />} />
+              <Route exact path="/news" element={<News />} /> {/* News route */}
               <Route exact path="/trade" element={<Trade />} />
             </Routes>
           </div>
@@ -36,6 +36,9 @@ const App = () => {
             </Link>
             <Link to="/cryptocurrencies" className="footer-button">
               Cryptocurrencies
+            </Link>
+            <Link to="/news" className="footer-button"> {/* News button */}
+              News
             </Link>
             <Link to="/trade" className="footer-button">
               Trade
