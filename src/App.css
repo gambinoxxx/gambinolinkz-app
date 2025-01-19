@@ -94,7 +94,7 @@ a:hover{
     }
 }
 
-@media screen and (max-width:800px){
+@media screen and (max-width:768px){
     .app{
         flex-direction: column;
         overflow: hidden;
@@ -293,7 +293,7 @@ a:hover{
     width: 180px;
 }
 .news-card{
-    min-height: 300px !important;
+    min-height: 200px !important;
 }
 .news-image-container{
     display: flex !important;
@@ -304,8 +304,8 @@ width: 70%;
 }
 
 .news-image-container .img{
-    width:100px;
-    height:100px;
+    width:20px;
+    height:20px;
 }
 .news-card p{
     color: black;
@@ -370,25 +370,34 @@ width: 70%;
     width: 200px !important;
     margin-top: 20px !important;
 }
+.footer-buttons {
+    display: flex;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+    justify-content: center;
+    gap: 10px; /* Space between buttons */
+    margin-top: 10px;
+}
 
 .footer {
     background-color: #001529;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 15px;
     align-items: center;
+    text-align: center;
+
 }
 .footer-button {
     display: inline-block;
     margin: 0 10px;
-    padding: 10px 20px;
-    font-size: 14px;
+    padding: 10px 15px;
+    font-size: 12px;
     font-weight: bold;
     color: var(--bgPrimary);
     text-decoration: none;
     background-color: var(--pink);
     border: none;
-    border-radius: 20px;
+    border-radius: 15px;
     transition: all 0.3s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
@@ -415,6 +424,10 @@ width: 70%;
     border: 1px solid var(--border);
     border-radius: 8px;
     background-color: var(--bgPrimary);
+} .footer-button {
+    width: 100%; /* Full-width buttons on small screens */
+    max-width: 200px;
+    text-align: center; /* Center-align the text */
 }
 
 .trade-title {

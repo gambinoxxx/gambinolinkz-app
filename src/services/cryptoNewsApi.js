@@ -7,8 +7,8 @@ const cryptoNewsHeaders = {
   'x-rapidapi-host': 'cryptocurrency-news2.p.rapidapi.com',
 };
 
-// Define the base URL for the API
-const baseUrl = 'https://cryptocurrency-news2.p.rapidapi.com/v1/cointelegraph';
+// Define the base URL for the Decrypt API
+const baseUrl = 'https://cryptocurrency-news2.p.rapidapi.com/v1/decrypt';
 
 // Helper function to create a request object
 const createRequest = (url) => ({
@@ -22,8 +22,7 @@ export const cryptoNewsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
     getCryptoNews: builder.query({
-      query: ({ category }) =>
-        createRequest(`?q=${category || 'crypto'}&safeSearch=Off&textFormat=Raw`),
+      query: () => createRequest('/'), // Decrypt API does not require category-based filtering
     }),
   }),
 });
@@ -32,10 +31,10 @@ export const cryptoNewsApi = createApi({
 export const { useGetCryptoNewsQuery } = cryptoNewsApi;
 
 // Axios request example (can be used for debugging or as a backup approach)
-const fetchCryptoNewsWithAxios = async (category = 'crypto') => {
+const fetchDecryptNewsWithAxios = async () => {
   const options = {
     method: 'GET',
-    url: `${baseUrl}?q=${category}&safeSearch=Off&textFormat=Raw`,
+    url: baseUrl,
     headers: cryptoNewsHeaders,
   };
 
@@ -50,4 +49,4 @@ const fetchCryptoNewsWithAxios = async (category = 'crypto') => {
 };
 
 // Export the Axios function for manual fetches if needed
-export { fetchCryptoNewsWithAxios };
+export { fetchDecryptNewsWithAxios };
